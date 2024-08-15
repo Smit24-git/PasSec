@@ -1,0 +1,22 @@
+version: "3.9"
+name: passec-test-migration
+services:
+  migration:
+    image: migration:1.0
+    container_name: passec-migration
+    build:
+      context: backend/
+      dockerfile: Migrations/MigrationBundle.Dockerfile
+      args:
+        - CONNECTION=${connection}
+        - CONFIGURATION=${CONFIGURATION}
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${CONFIGURATION}
+    networks:
+      - pas-network
+
+
+networks:
+  pas-network:
+    name: pas-network
+    external: true

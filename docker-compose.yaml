@@ -1,0 +1,65 @@
+version: "3.9"
+name: passec-test
+services:
+  frontend:
+    image: frontend:1.0
+    container_name: frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+      args:
+        - CONFIGURATION=${CONFIGURATION}
+    ports:
+      - "${web_port}:3000"
+    networks:
+      - pas-network
+    depends_on:
+      - backend 
+
+  backend:
+    image: backend:1.0
+    container_name: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+      args:
+        - CONNECTION=${connection}
+        - SECRET=${api_secret}
+        - CONFIGURATION=${CONFIGURATION}
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${CONFIGURATION}
+      - ApiSettings:Secret=${api_secret}
+    networks:
+      - pas-network
+    depends_on:
+      - pas-db
+    
+
+  pas-db:
+    image: mysql:1.0
+    container_name: pas-db
+    build:
+      context: MySQL
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_DATABASE=${db_name}
+      - MYSQL_USER=${db_user}
+      - MYSQL_PASSWORD=${db_pass}
+      - MYSQL_ROOT_PASSWORD=${db_root_pass}
+    ports:
+      - "${db_port}:3306"
+    networks:
+      - pas-network
+    volumes:
+      - pas-db:/var/lib/mysql
+  
+networks:
+  pas-network:
+    name: pas-network
+    driver: bridge
+    external: false
+
+volumes:
+  pas-db:
+    name: "pas-db"
+

@@ -1,5 +1,6 @@
 ﻿using PasSecWebApi.Application;
 using PasSecWebApi.Extensions;
+using PasSecWebApi.Middleware;
 using PasSecWebApi.Persistence;
 using PasSecWebApi.Repositories;
 
@@ -20,6 +21,10 @@ namespace PasSecWebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
 
             if(builder.Environment.IsDevelopment())
             {
@@ -41,11 +46,16 @@ namespace PasSecWebApi
                 app.UseSwaggerUI();
             }
 
+
+            app.UseCors("Open");
+
             app.UseHttpsRedirection();
-
+            
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.MapControllers();
+            app.UseCustomExceptionHandler();
 
             return app;
         }
