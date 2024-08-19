@@ -38,6 +38,7 @@ import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TreeModule } from 'primeng/tree';
+import { FloatLabelModule } from 'primeng/floatlabel'
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { TreeModule } from 'primeng/tree';
     TooltipModule,
     SelectButtonModule,
     TreeModule,
+    FloatLabelModule,
   ],
   exports: [
     FormsModule,
@@ -122,6 +124,7 @@ import { TreeModule } from 'primeng/tree';
     TooltipModule,
     SelectButtonModule,
     TreeModule,
+    FloatLabelModule
   ],
   providers: [
     MessageService,

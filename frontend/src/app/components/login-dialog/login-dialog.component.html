@@ -1,0 +1,49 @@
+<p-dialog
+    header="Login"
+    [(visible)]="display"
+    (onHide)="closeDialog()"
+    modal="true"
+    [style]="{width:'30rem'}">
+    <div>
+        <form autocomplete="off" [formGroup]="loginForm" (submit)="login()">
+            <div class="flex flex-column gap-5 mt-5">
+                <!-- username -->
+                <div class="p-fluid">
+                    <p-floatLabel>
+                        <input type="text" pInputText formControlName="username" id="username"/>
+                        <label for="username">Username</label>
+                    </p-floatLabel>
+                    <small *ngIf="!loginForm.controls['username'].valid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)" class="text-red-100 ml-3">
+                        {{loginForm.controls['username'].hasError('required') ? "Username is Required." : ""}}
+                        {{loginForm.controls['username'].hasError('minlength') ? "Must be at least 3 characters long." : ""}}
+                    </small>
+                    
+                </div>
+
+                <!-- password -->
+                <div class="p-fluid">
+                    <p-floatLabel>
+                        <p-password [feedback]="false" formControlName="password" inputId="password" />
+                        <label for="password">Password</label>
+                    </p-floatLabel>
+                    <small *ngIf="!loginForm.controls['password'].valid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched )" class="text-red-100 ml-3">
+                        {{loginForm.controls['password'].hasError('required') ? "Password is Required." : ""}}
+                        {{loginForm.controls['password'].hasError('pattern') ? "Must be at least 16 characters long containing digits capital and small letters" : ""}}
+                    </small>
+                </div>
+
+                <!-- submit  -->
+                <div class="flex flex-row-reverse">
+                    <p-button label="Login" type="submit" [disabled]="loginForm.invalid"/>
+                    <p-button label="register" [text]="true" severity="secondary" type="submit" type="button" (onClick)="openRegisterDialog()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+@if(displayRegisterDialog){
+    <app-register-dialog
+        [(display)]="displayRegisterDialog"
+        (onRegistered)="onUserRegistered($event)"/>
+}

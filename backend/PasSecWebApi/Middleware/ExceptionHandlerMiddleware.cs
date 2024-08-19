@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using PasSecWebApi.Shared.Exceptions;
+using System.Net;
 using System.Text.Json;
 
 namespace PasSecWebApi.Middleware
@@ -30,6 +31,14 @@ namespace PasSecWebApi.Middleware
 
             switch(ex)
             {
+                case ValidationException validationException:
+                    statusCode = HttpStatusCode.BadRequest;
+                    res = JsonSerializer.Serialize(new { validationException.Errors });
+                    break;
+                case BadRequestException badRequest:
+                    statusCode = HttpStatusCode.BadRequest;
+                    res = JsonSerializer.Serialize(new { badRequest.Errors });
+                    break;
                 // add custom error code here. serialize custom response.
                 case Exception:
                     statusCode = HttpStatusCode.InternalServerError;

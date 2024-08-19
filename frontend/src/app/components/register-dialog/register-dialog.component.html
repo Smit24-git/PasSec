@@ -1,0 +1,72 @@
+<p-dialog
+    header="Register"
+    [(visible)]="display"
+    (onHide)="closeDialog()"
+    [style]="{width:'30rem'}"
+    modal="true">
+    <div>
+        <form [formGroup]="registerForm" autocomplete="off" (submit)="register()">
+            <div class="flex flex-column gap-5 mt-5">
+                <!-- username -->
+                <div class="p-fluid">
+                    <p-floatLabel>
+                        <input type="text" pInputText formControlName="username" id="username" />
+                        <label for="username">Username</label>
+                    </p-floatLabel>
+                    <small *ngIf="!registerForm.controls['username'].valid && 
+                                    (registerForm.controls['username'].dirty || 
+                                            registerForm.controls['username'].touched)"
+                            class="text-red-100 ml-3">
+                        {{registerForm.controls['username'].hasError('required') ? "Username is Required." : ""}}
+                        {{registerForm.controls['username'].hasError('minlength') ? "Must be at least 3 characters long." : ""}}
+                    </small>
+                </div>
+
+                <!-- password -->
+                <div class="p-fluid">
+                    <p-floatLabel>
+                        <p-password [feedback]="false" formControlName="password" inputId="password" />
+                        <label for="password">Password</label>
+                    </p-floatLabel>
+                    <small *ngIf="!registerForm.controls['password'].valid && 
+                                    (registerForm.controls['password'].dirty ||
+                                             registerForm.controls['password'].touched)"
+                            class="text-red-100 ml-3">
+                        {{registerForm.controls['password'].hasError('required') ? "Password is Required." : ""}}
+                        {{registerForm.controls['password'].hasError('pattern') ? "Must be at least 16 characters long containing digits capital and small letters." : ""}}  
+                    </small>
+                </div>
+
+                <!-- re-password -->
+                <div class="p-fluid">
+                    <p-floatLabel>
+                        <p-password 
+                            [class.ng-invalid]="(!registerForm.controls['retypePassword'].valid || 
+                                                        registerForm.hasError('mismatchPassword')) && 
+                                                            (registerForm.controls['retypePassword'].dirty || 
+                                                                registerForm.controls['retypePassword'].touched)" 
+                            [feedback]="false" 
+                            formControlName="retypePassword" 
+                            inputId="retypePassword" />
+                        <label for="password">Retype Password</label>
+                    </p-floatLabel>
+                    <small *ngIf="(!registerForm.controls['retypePassword'].valid || registerForm.hasError('mismatchPassword'))  && 
+                                    (registerForm.controls['retypePassword'].dirty || 
+                                        registerForm.controls['retypePassword'].touched)"
+                            class="text-red-100 ml-3">
+                        {{registerForm.controls['retypePassword'].hasError('required') ? "Password is Required." : 
+                            registerForm.hasError('mismatchPassword') ? "Password does not match." : ""}}
+                    </small>
+
+                </div>
+
+                <!-- submit  -->
+                <div class="flex flex-row-reverse">
+                    <p-button label="Register" type="submit" [disabled]="registerForm.invalid"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+<p-toast></p-toast>

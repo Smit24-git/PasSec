@@ -21,5 +21,8 @@ namespace PasSecWebApi.Persistence
 
             base.OnModelCreating(builder);
         }
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
     }
 }

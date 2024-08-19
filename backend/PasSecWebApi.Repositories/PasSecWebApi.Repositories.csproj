@@ -9,8 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Contracts\Infrastructure\" />
-    <Folder Include="Contracts\Persistence\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
