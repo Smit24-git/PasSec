@@ -47,4 +47,8 @@ export class AuthService {
 
     return "Bearer " + token;
   }
+
+  public getLoggedInUserName():string | null {
+    return localStorage.getItem('user');
+  }
 }

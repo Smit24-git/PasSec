@@ -18,6 +18,7 @@ export class LoginDialogComponent implements OnInit {
 
   @Input({required:true}) display:boolean = false;
   @Output() displayChange = new EventEmitter<boolean>();
+  @Output() onLoggedIn = new EventEmitter<void>();
 
   displayRegisterDialog = false;
 
@@ -54,7 +55,9 @@ export class LoginDialogComponent implements OnInit {
       userName: loginFormValues.username,
       password: loginFormValues.password,
     }).subscribe(()=>{
-      this.notification.showMessage({severity: 'success', summary: 'Logged in successfully!'})      
+      this.notification.showMessage({severity: 'success', summary: 'Logged in successfully!'});
+      this.onLoggedIn.emit();
+      this.closeDialog();
     });
   }
 
