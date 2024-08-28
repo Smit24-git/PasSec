@@ -257,7 +257,7 @@ namespace DatabaseMigration.Migrations
 
                     b.HasKey("VaultId");
 
-                    b.ToTable("Vault");
+                    b.ToTable("Vaults");
                 });
 
             modelBuilder.Entity("PasSecWebApi.Persistence.VaultStorageKey", b =>
@@ -297,7 +297,7 @@ namespace DatabaseMigration.Migrations
 
                     b.HasIndex("VaultId");
 
-                    b.ToTable("VaultStorageKey");
+                    b.ToTable("VaultStorageKeys");
                 });
 
             modelBuilder.Entity("PasSecWebApi.Persistence.VaultStorageKeySecurityQA", b =>
@@ -332,7 +332,7 @@ namespace DatabaseMigration.Migrations
 
                     b.HasIndex("VaultStorageKeyId");
 
-                    b.ToTable("VaultStorageKeySecurityQA");
+                    b.ToTable("VaultStorageKeysSecurityQAs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

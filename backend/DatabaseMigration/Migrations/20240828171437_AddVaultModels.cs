@@ -12,7 +12,7 @@ namespace DatabaseMigration.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Vault",
+                name: "Vaults",
                 columns: table => new
                 {
                     VaultId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -29,12 +29,12 @@ namespace DatabaseMigration.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vault", x => x.VaultId);
+                    table.PrimaryKey("PK_Vaults", x => x.VaultId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "VaultStorageKey",
+                name: "VaultStorageKeys",
                 columns: table => new
                 {
                     VaultStorageKeyId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -55,18 +55,18 @@ namespace DatabaseMigration.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VaultStorageKey", x => x.VaultStorageKeyId);
+                    table.PrimaryKey("PK_VaultStorageKeys", x => x.VaultStorageKeyId);
                     table.ForeignKey(
-                        name: "FK_VaultStorageKey_Vault_VaultId",
+                        name: "FK_VaultStorageKeys_Vaults_VaultId",
                         column: x => x.VaultId,
-                        principalTable: "Vault",
+                        principalTable: "Vaults",
                         principalColumn: "VaultId",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "VaultStorageKeySecurityQA",
+                name: "VaultStorageKeysSecurityQAs",
                 columns: table => new
                 {
                     VaultStorageKeySecurityQAId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -83,24 +83,24 @@ namespace DatabaseMigration.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VaultStorageKeySecurityQA", x => x.VaultStorageKeySecurityQAId);
+                    table.PrimaryKey("PK_VaultStorageKeysSecurityQAs", x => x.VaultStorageKeySecurityQAId);
                     table.ForeignKey(
-                        name: "FK_VaultStorageKeySecurityQA_VaultStorageKey_VaultStorageKeyId",
+                        name: "FK_VaultStorageKeysSecurityQAs_VaultStorageKeys_VaultStorageKey~",
                         column: x => x.VaultStorageKeyId,
-                        principalTable: "VaultStorageKey",
+                        principalTable: "VaultStorageKeys",
                         principalColumn: "VaultStorageKeyId",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VaultStorageKey_VaultId",
-                table: "VaultStorageKey",
+                name: "IX_VaultStorageKeys_VaultId",
+                table: "VaultStorageKeys",
                 column: "VaultId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VaultStorageKeySecurityQA_VaultStorageKeyId",
-                table: "VaultStorageKeySecurityQA",
+                name: "IX_VaultStorageKeysSecurityQAs_VaultStorageKeyId",
+                table: "VaultStorageKeysSecurityQAs",
                 column: "VaultStorageKeyId");
         }
 
@@ -108,13 +108,13 @@ namespace DatabaseMigration.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "VaultStorageKeySecurityQA");
+                name: "VaultStorageKeysSecurityQAs");
 
             migrationBuilder.DropTable(
-                name: "VaultStorageKey");
+                name: "VaultStorageKeys");
 
             migrationBuilder.DropTable(
-                name: "Vault");
+                name: "Vaults");
         }
     }
 }

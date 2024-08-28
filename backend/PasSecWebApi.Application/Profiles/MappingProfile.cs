@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PasSecWebApi.Persistence;
+using PasSecWebApi.Shared.Dtos;
 
 namespace PasSecWebApi.Application.Profiles
 {
-    public class MappingProfile:Profile
+    public class MappingProfile : Profile
     {
-        public MappingProfile() { 
+        public MappingProfile()
+        {
             // map objects here.
+            CreateMap<Vault, VaultDto>().ReverseMap();
         }
     }
 }

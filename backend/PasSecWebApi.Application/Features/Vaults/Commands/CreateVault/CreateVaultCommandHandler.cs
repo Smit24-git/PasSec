@@ -79,6 +79,8 @@ namespace PasSecWebApi.Application.Features.Vaults.Commands.CreateVault
                     vsq.IV = iv;
                     vsq.Question = _dataEncryptor.EncryptValue(key,iv,sq.Question).Item1;
                     vsq.Answer = _dataEncryptor.EncryptValue(key,iv, sq.Answer).Item1;
+                    vsq.AddedBy = userId;
+                    vsq.AddedAt = DateTime.Now;
                     vsKey.SecurityQA.Add(vsq);
                 });
 

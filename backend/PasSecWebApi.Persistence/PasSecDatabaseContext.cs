@@ -24,5 +24,9 @@ namespace PasSecWebApi.Persistence
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
+        public DbSet<Vault> Vaults { get; set; }
+        public DbSet<VaultStorageKey> VaultStorageKeys { get; set; }
+        public DbSet<VaultStorageKeySecurityQA> VaultStorageKeysSecurityQAs { get; set; }
+
     }
 }

@@ -7,8 +7,4 @@
     <Configurations>Debug;Release;Production</Configurations>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\" />
-  </ItemGroup>
-
 </Project>
