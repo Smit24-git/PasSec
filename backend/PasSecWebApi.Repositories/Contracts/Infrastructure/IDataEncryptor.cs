@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace PasSecWebApi.Repositories.Contracts.Infrastructure
 {
-    internal interface IDataEncryptor
+    public interface IDataEncryptor
     {
-        string EncryptValue(string key, out string iv, string value);
+        (string, string) EncryptValue(string key, string? iv, string value);
     }
 }

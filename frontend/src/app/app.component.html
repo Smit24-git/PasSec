@@ -3,3 +3,8 @@
 <router-outlet />
 
 <app-notification />
+
+@if(displayLoginDialog){
+    <app-login-dialog
+        [(display)]="displayLoginDialog"/>
+}

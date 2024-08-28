@@ -1,0 +1,182 @@
+<form [formGroup]="createVaultForm" (submit)="createVault()" >
+
+<p-dialog
+    header="Create New Vault"
+    [(visible)]="display"
+    (onHide)="closeDialog()"
+    modal="true"
+    [style]="{width: '60rem'}">
+    <div>
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>Vault Name: </label>
+                </div>
+                <div class="col-9">
+                    <input pInputText class="p-2 text-base" formControlName="vaultName"  />
+                </div>
+            </div>
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-start">
+                    <label>Description: </label>
+                </div>
+                <div class="col-9">
+                    <textarea
+                        pInputTextarea 
+                        rows="5"
+                        formControlName="description"
+                    ></textarea>
+                </div>
+            </div>
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>Self Sign: </label>
+                </div>
+                <div class="col-9 flex gap-3">
+                    <p-checkbox binary="true" formControlName="useUserKey"></p-checkbox>
+                    <input formControlName="userKey" pInputText class="p-2 text-base" placeholder="Enter personal key to lock the vault..."/>
+                </div>
+            </div>
+
+            <div class="grid">
+                <h4> Vault Storage (encrypted)</h4>
+            </div>
+
+            <div class="grid">
+                <div class="col-12">
+                    <p-table 
+                        [value]="keysFormArray.controls" 
+                        [tableStyle]="{width:'100%'}"
+                        [scrollable]="true" 
+                        scrollHeight="300px" 
+                        editMode="row"
+                        styleClass="p-datatable-sm"
+                        dataKey="value._key"
+                        >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 150px;">username</th>
+                                <th style="width: 150px;">password</th>
+                                <th style="width: 250px;">email</th>
+                                <th style="width: 200px;">access loc. (URL)</th>
+                                <th>security qa</th>
+                                <th style="width: 200px;"></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-editing="editing">
+                            <ng-container formArrayName="keys">
+                                <tr [pEditableRow]="rowData" [formGroupName]="rowIndex" >
+                                    <td>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input formControlName="username" pInputText class="p-2 m-0 text-base w-7rem"/>
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData.controls.username.value}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
+                                    <td>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input formControlName="password" pInputText class="p-2 text-base w-7rem"/>
+                                                
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData.controls.password.value}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
+                                    <td>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input formControlName="email" pInputText class="p-2 text-base w-12rem"/>
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData.controls.email.value}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
+                                    <td>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input formControlName="accessLocation" pInputText class="p-2 text-base w-12rem"/>
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData.controls.accessLocation.value}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
+                                    <td>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                --
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData.controls.securityQAs.value.length}} QA
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
+                                    <td>
+                                        <div class="flex">
+                                            <button
+                                                *ngIf="!editing"
+                                                pButton pRipple type="button"
+                                                pInitEditableRow
+                                                icon="pi pi-pencil"
+                                                class="p-button-rounded p-button-text"
+                                            ></button>
+                                            <button
+                                                *ngIf="editing"
+                                                pButton pRipple type="button"
+                                                pSaveEditableRow
+                                                icon="pi pi-check"
+                                                class="p-button-rounded p-button-text p-button-success mr-2"
+                                                (click)="editedRow()"
+                                            ></button>
+                                            <button
+                                                *ngIf="editing"
+                                                pButton pRipple type="button"
+                                                pCancelEditableRow
+                                                icon="pi pi-times"
+                                                class="p-button-rounded p-button-text p-button-danger"
+                                                (click)="cancelledRowEdit()"
+                                            ></button>
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr> <td colspan="6"> 
+                                <p-button 
+                                    label="Add to Storage" icon="pi pi-plus" outlined="true" size="small"
+                                    (onClick)="addNewKey()"
+                                ></p-button> 
+                            </td> </tr>
+                        </ng-template>
+                    </p-table>    
+                </div>
+            </div>
+            
+            
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button
+            type="submit"
+            label="Create Vault"
+            [raised]='true'
+            [outlined]="true"
+            severity="success"
+            [disabled]="createVaultForm.invalid"
+        ></p-button>
+        <p-button
+            label="Cancel"
+            outlined="true"
+            severity="warning"
+            styleClass="w-2"
+            (onClick)="closeDialog()"
+        ></p-button>
+    </ng-template>
+</p-dialog>
+</form>

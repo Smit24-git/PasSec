@@ -4,11 +4,12 @@ import { LoginDialogComponent } from "../login-dialog/login-dialog.component";
 import { NotificationService } from '../../shared/services/notification/notification.service';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
+import { CreateVaultDialogComponent } from '../create-vault-dialog/create-vault-dialog.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [LoginDialogComponent, CommonModule, SharedModule],
+  imports: [LoginDialogComponent, CreateVaultDialogComponent, CommonModule, SharedModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
   isLoggedIn = false;
   loggedInUser = '';
   displayLoginDialog = false;
-  
+  displayCreateVaultDialog = false;
+
   private authService = inject(AuthService);
   private notificationService = inject(NotificationService);
   
@@ -42,5 +44,9 @@ export class HomeComponent implements OnInit {
       this.notificationService.showMessage({severity: 'error', summary: 'something went wrong. please try again.'});
       this.openLoginUserDialog();      
     }
+  }
+
+  openCreateVaultDialog(){
+    this.displayCreateVaultDialog = true
   }
 }

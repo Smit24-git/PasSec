@@ -9,7 +9,8 @@
                             icon="pi pi-plus"
                             class="mr-2"
                             size="small"
-                            outlined="true"/>
+                            outlined="true"
+                            (onClick)="openCreateVaultDialog()"/>
                     </div>
                     <div class="p-toolbar-group-center">
                         
@@ -25,7 +26,7 @@
             
             <!-- Vaults -->
             <div>
-
+                
             </div>
         </div>
     </div>
@@ -36,4 +37,9 @@
     <app-login-dialog
         [(display)]="displayLoginDialog"
         (onLoggedIn)="onUserLoggedIn()"/>
+}
+@if(displayCreateVaultDialog){
+    <app-create-vault-dialog
+        [(display)]="displayCreateVaultDialog"
+    ></app-create-vault-dialog>
 }

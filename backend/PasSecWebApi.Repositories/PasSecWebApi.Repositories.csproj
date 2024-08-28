@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Infrastructure\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PasSecWebApi.Persistence\PasSecWebApi.Persistence.csproj" />
   </ItemGroup>
 
