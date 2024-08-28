@@ -5,6 +5,8 @@ import { NotificationService } from '../../shared/services/notification/notifica
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { CreateVaultDialogComponent } from '../create-vault-dialog/create-vault-dialog.component';
+import { VaultService } from '../../shared/services/vaults/vault.service';
+import { Vault } from '../../shared/models/vault.model';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +23,10 @@ export class HomeComponent implements OnInit {
   displayCreateVaultDialog = false;
 
   private authService = inject(AuthService);
+  private vaultService = inject(VaultService);
   private notificationService = inject(NotificationService);
+
+  vaults:Vault[] = [];
   
   ngOnInit(): void {
     setTimeout(()=>{
@@ -29,8 +34,11 @@ export class HomeComponent implements OnInit {
       if(!this.isLoggedIn){
         // open login user dialog
         this.openLoginUserDialog();
+      } {
+        this.setupVaults();
       }
     }, 200);
+
   }
   private openLoginUserDialog(){
     this.displayLoginDialog = true;
@@ -48,5 +56,21 @@ export class HomeComponent implements OnInit {
 
   openCreateVaultDialog(){
     this.displayCreateVaultDialog = true
+  }
+
+
+  /**
+   * 
+   */
+  private setupVaults() {
+    this.vaultService.listUserVaults()
+    .subscribe((res)=>{
+      this.vaults = [...res.vaults];
+
+    });
+  }
+
+  onCreateVaultDisplayChanges(){
+    this.setupVaults();
   }
 }

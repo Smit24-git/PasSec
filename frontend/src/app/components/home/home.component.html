@@ -1,6 +1,6 @@
 <div *ngIf="isLoggedIn">
     <div class="flex flex-column">
-        <div class="w-8 p-5 m-auto">
+        <div class="w-12 md:w-8 p-5 m-auto">
             <!-- Navigation tools -->
             <div>
                 <p-toolbar [style]="{padding: '10px'}">
@@ -25,8 +25,25 @@
             </div>
             
             <!-- Vaults -->
-            <div>
-                
+            <div class="flex gap-2 mt-2 flex-wrap">
+                <div style="flex: 1 1 350px" *ngFor="let vault of vaults">
+                    <p-card [subheader]="vault.vaultName">
+                        <ng-template pTemplate="header">
+                            <!-- <img src="vault.jpg"/> -->
+                        </ng-template>
+                        <div style="height: 150px; overflow: auto;">
+                            <p style="white-space: pre-wrap;">{{vault.description}}</p>
+                        </div>
+                        <ng-template pTemplate="footer">
+                            <p-button 
+                                label="Open Vault"
+                                outlined="true"
+                                [style]="{width:'100%'}">
+
+                            </p-button>
+                        </ng-template>
+                    </p-card>
+                </div>
             </div>
         </div>
     </div>
@@ -41,5 +58,6 @@
 @if(displayCreateVaultDialog){
     <app-create-vault-dialog
         [(display)]="displayCreateVaultDialog"
+        (displayChange)="onCreateVaultDisplayChanges()"
     ></app-create-vault-dialog>
 }

@@ -12,6 +12,11 @@ export interface CreateVaultRequest {
     }
 }
 
-export interface Vault{
+export interface ListUserVaultResponse {
+    vaults:Vault[];
+}
 
+export interface Vault{
+    vaultName:string;
+    description?:string;
 }

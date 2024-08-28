@@ -97,8 +97,9 @@ export class CreateVaultDialogComponent implements OnInit {
     const vaultFormValue = this.createVaultForm.value;
 
     this.vaultService.createVault(vaultFormValue).subscribe({
-      next: (vault)=>{
+      next: (_)=>{
         this.notificationService.showMessage({severity: 'success', summary: 'New vault added securely!'});
+        this.closeDialog();
       },
       error: ()=>{
         // handled by global error!
