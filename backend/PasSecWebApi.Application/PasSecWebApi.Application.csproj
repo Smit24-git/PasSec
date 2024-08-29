@@ -22,4 +22,9 @@
     <ProjectReference Include="..\PasSecWebApi.Shared\PasSecWebApi.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\VaultStorageSecurityKeys\Commands\" />
+    <Folder Include="Features\VaultStorageSecurityQAs\Commands\" />
+  </ItemGroup>
+
 </Project>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PasSecWebApi.Application.Features.Vaults.Commands.CreateVault;
 using PasSecWebApi.Application.Features.Vaults.Queries.GetAuthenticatedUserVaults;
+using PasSecWebApi.Application.Features.Vaults.Queries.GetVaultById;
 
 namespace PasSecWebApi.Controllers
 {
@@ -38,5 +39,17 @@ namespace PasSecWebApi.Controllers
         {
             return Ok(await _mediatr.Send(new GetAuthenticatedUserVaultQuery()));
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/vaults/{vaultId}")]
+        public async Task<ActionResult> GetVaultDetails(string vaultId, [FromBody] GetVaultByIdQuery qry )
+        {
+            if(vaultId!= qry.VaultId)
+            {
+                throw new Shared.Exceptions.BadRequestException(["Invalid Request"]);
+            }
+            return Ok(await _mediatr.Send(qry));
+        } 
     }
 }

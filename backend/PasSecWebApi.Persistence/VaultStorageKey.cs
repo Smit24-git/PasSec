@@ -21,7 +21,7 @@ namespace PasSecWebApi.Persistence
 
         public virtual Vault? Vault { get; set; }
 
-        public List<VaultStorageKeySecurityQA>? SecurityQA { get; set; }
+        public List<VaultStorageKeySecurityQA>? SecurityQAs { get; set; }
 
 
     }

@@ -72,7 +72,7 @@ namespace PasSecWebApi.Application.Features.Vaults.Commands.CreateVault
                                     : _dataEncryptor.EncryptValue(key, iv, rkey.AccessLocation).Item1;
                 vsKey.IV = iv;
 
-                vsKey.SecurityQA = new List<VaultStorageKeySecurityQA>();
+                vsKey.SecurityQAs = new List<VaultStorageKeySecurityQA>();
                 rkey.SecurityQuestions?.ForEach(sq =>
                 {
                     var vsq = new VaultStorageKeySecurityQA();
@@ -81,7 +81,7 @@ namespace PasSecWebApi.Application.Features.Vaults.Commands.CreateVault
                     vsq.Answer = _dataEncryptor.EncryptValue(key,iv, sq.Answer).Item1;
                     vsq.AddedBy = userId;
                     vsq.AddedAt = DateTime.Now;
-                    vsKey.SecurityQA.Add(vsq);
+                    vsKey.SecurityQAs.Add(vsq);
                 });
 
                 Vault.StorageKeys.Add(vsKey);

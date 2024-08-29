@@ -10,6 +10,9 @@ namespace PasSecWebApi.Application.Profiles
         {
             // map objects here.
             CreateMap<Vault, VaultDto>().ReverseMap();
+            CreateMap<VaultStorageKey, VaultStorageKeyDto>().ReverseMap();
+            CreateMap<VaultStorageKeySecurityQA, VaultStorageKeySecurityQADto>().ReverseMap();
+
         }
     }
 }

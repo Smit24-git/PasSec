@@ -27,6 +27,8 @@ namespace PasSecWebApi.Repositories
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IVaultRepository, VaultRepository>();
+            services.AddScoped<IVaultStorageKeyRepository, VaultStorageKeyRepository>();
+            services.AddScoped<IVaultStorageKeySecurityQARepository, VaultStorageKeySecurityQARepository>();
 
             return services;
         }
