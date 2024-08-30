@@ -31,6 +31,10 @@ namespace PasSecWebApi.Application.Features.Vaults.Commands.CreateVault
     {
         public CreateVaultCommandKeysValidator()
         {
+            RuleFor(e => e.KeyName)
+                .NotEmpty()
+                .NotNull();
+
             RuleFor(e => e.Password)
                 .NotNull()
                 .NotEmpty();

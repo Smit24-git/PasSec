@@ -1,0 +1,94 @@
+<p-dialog
+    header="Vault"
+    [(visible)]="display"
+    (onHide)="closeDialog()"
+    [style]="{width: '60rem'}"
+    modal="true">
+    <div class=" flex flex-column gap-3 mt-3">
+        <div class="grid">
+            <div class="col-2 align-self-center"><label>Vault Name: </label></div>
+            <div class="col">{{vault.vaultName}}</div>
+        </div>
+        <div class="grid">
+            <div class="col-2 align-self-top"><label>Description: </label></div>
+            <div class="col" style="white-space: pre-wrap;">{{vault.description}}</div>
+        </div>
+        <h4>Storage Keys:</h4>
+        <div class="grid">
+            <div class="col-6" *ngFor="let storageKey of vault.storageKeys">
+                <p-card [subheader]="storageKey.keyName" styleClass="border-3	 surface-border	">
+                    <div class="flex gap-2 flex-column flex-wrap">
+                        <div><a href="{{storageKey.accessLocation}}" target="_blank"> {{storageKey.accessLocation}} </a></div>
+                        <div class="flex gap-2">
+                            <div>
+                                <p-button 
+                                    [disabled]="!storageKey.username"
+                                    icon="pi pi-clipboard" 
+                                    [text]="true" 
+                                    styleClass="text-sm m-0 p-0 h-auto w-auto" 
+                                    class="m-0 p-0"
+                                    severity="secondary"
+                                    [cdkCopyToClipboard]="storageKey.username ?? '' " [cdkCopyToClipboardAttempts]="5"
+                                ></p-button>
+                            </div>
+                            <div> Username: {{storageKey.username}} </div>
+                            
+                        </div>
+                        <div class="flex gap-2">
+                            <div>
+                                <p-button 
+                                    icon="pi pi-clipboard" 
+                                    [text]="true" 
+                                    styleClass="text-sm m-0 p-0 h-auto w-auto" 
+                                    class="m-0 p-0"
+                                    severity="secondary"
+                                    [cdkCopyToClipboard]="storageKey.password" [cdkCopyToClipboardAttempts]="5"
+                                ></p-button>
+                            </div>
+                            <div>Password: {{storageKey.password | passwordMask: !storageKey.unmaskPassword}}</div>
+                            <div>
+                                <p-button 
+                                    icon="fa fa-light {{storageKey.unmaskPassword ? 'fa-eye-slash' : 'fa-eye' }}" 
+                                    [text]="true" 
+                                    [rounded]="true" 
+                                    styleClass="text-sm m-0 p-0 h-auto w-auto" 
+                                    class="m-0 p-0"
+                                    (onClick)="storageKey.unmaskPassword = !storageKey.unmaskPassword"
+                                ></p-button>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <div>
+                                <p-button 
+                                    [disabled]="!storageKey.emailAddress"
+                                    icon="pi pi-clipboard" 
+                                    [text]="true" 
+                                    styleClass="text-sm m-0 p-0 h-auto w-auto" 
+                                    class="m-0 p-0"
+                                    severity="secondary"
+                                    [cdkCopyToClipboard]="storageKey.emailAddress ?? '' " [cdkCopyToClipboardAttempts]="5"
+                                ></p-button>
+                            </div>
+                            <div>
+                                Email ID: {{storageKey.emailAddress}}
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <ng-template pTemplate="footer">
+                        <div class=" flex flex-row-reverse">
+                            <p-button
+                                label="Open"
+                                size="small"
+                                [text]="true"
+                                (onClick)="openStorageKeyDialog(storageKey)"
+                            ></p-button>
+                        </div>
+                        
+                    </ng-template>
+                </p-card>
+            </div>
+        </div>
+    </div>
+</p-dialog>

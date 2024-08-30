@@ -65,6 +65,7 @@ export class CreateVaultDialogComponent implements OnInit {
     let randomValue = Math.random();
     keysFormArray.push(this.fb.group({
       _key:[randomValue],
+      keyName:[null, [Validators.required]],
       username: [''],
       password: ['', [Validators.required]],
       email: [''],

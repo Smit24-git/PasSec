@@ -12,8 +12,10 @@ export class AuthService {
   private registerUrl = environment.passecApi + '/users/register';
   private loginUrl = environment.passecApi + '/users/login';
   private $triggerLogin = new Subject();
+  private $onUserLoggedIn = new Subject();
 
   triggerLoginObserver = this.$triggerLogin.asObservable();
+  onUserLoggedIn = this.$onUserLoggedIn.asObservable();
 
   private http = inject(HttpClient);
   constructor() { }
@@ -57,5 +59,9 @@ export class AuthService {
 
   public triggerLogin() {
     this.$triggerLogin.next({});
+  }
+
+  public triggerOnUserLoggedIn() {
+    this.$onUserLoggedIn.next({});
   }
 }

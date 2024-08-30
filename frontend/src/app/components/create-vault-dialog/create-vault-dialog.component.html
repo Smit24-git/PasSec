@@ -54,6 +54,7 @@
                         >
                         <ng-template pTemplate="header">
                             <tr>
+                                <th style="width: 150px;">keyName</th>
                                 <th style="width: 150px;">username</th>
                                 <th style="width: 150px;">password</th>
                                 <th style="width: 250px;">email</th>
@@ -66,6 +67,15 @@
                             <ng-container formArrayName="keys">
                                 <tr [pEditableRow]="rowData" [formGroupName]="rowIndex" >
                                     <td>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input formControlName="keyName" pInputText class="p-2 m-0 text-base w-7rem"/>
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData.controls.keyName.value}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td><td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
                                                 <input formControlName="username" pInputText class="p-2 m-0 text-base w-7rem"/>

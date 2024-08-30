@@ -56,6 +56,7 @@ namespace PasSecWebApi.Application.Features.Vaults.Commands.CreateVault
             request.Keys?.ForEach(rkey =>
             {
                 var vsKey = new VaultStorageKey();
+                vsKey.KeyName = rkey.KeyName;
                 vsKey.AddedAt = DateTime.Now;
                 vsKey.AddedBy = userId;
                 

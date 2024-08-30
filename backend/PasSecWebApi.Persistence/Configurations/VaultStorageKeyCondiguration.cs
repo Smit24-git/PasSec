@@ -9,6 +9,9 @@ namespace PasSecWebApi.Persistence.Configurations
         {
             builder.HasKey(x => x.VaultStorageKeyId);
 
+            builder.Property(e => e.KeyName)
+                .IsRequired();
+
             builder.Property(e => e.VaultId)
                 .IsRequired();
             builder.Property(e => e.Password)

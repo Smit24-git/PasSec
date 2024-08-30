@@ -11,6 +11,7 @@ namespace PasSecWebApi.Persistence
     {
         public Guid VaultStorageKeyId { get; set; }
         public Guid VaultId {  get; set; }
+        public string KeyName { get; set; } = string.Empty;
         public string? Username { get; set; }
         public string Password { get; set; } = string.Empty;
         public string? EmailAddress { get; set; }

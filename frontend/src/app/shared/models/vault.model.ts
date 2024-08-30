@@ -16,7 +16,20 @@ export interface ListUserVaultResponse {
     vaults:Vault[];
 }
 
-export interface Vault{
+export interface Vault {
+    vaultId:string;
     vaultName:string;
     description?:string;
+    storageKeys: VaultStorageKey[]
+}
+
+export interface VaultStorageKey {
+    keyName:string;
+    emailAddress?:string;
+    username?:string;
+    password:string;
+    accessLocation?:string;
+    securityQuestions?:{}[];
+
+    unmaskPassword: boolean;
 }

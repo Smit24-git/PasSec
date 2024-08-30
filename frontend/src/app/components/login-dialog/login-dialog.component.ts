@@ -57,6 +57,7 @@ export class LoginDialogComponent implements OnInit {
     }).subscribe(()=>{
       this.notification.showMessage({severity: 'success', summary: 'Logged in successfully!'});
       this.onLoggedIn.emit();
+      this.authService.triggerOnUserLoggedIn();
       this.closeDialog();
     });
   }
