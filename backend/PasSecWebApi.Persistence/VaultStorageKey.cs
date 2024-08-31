@@ -21,9 +21,6 @@ namespace PasSecWebApi.Persistence
         public DateTime AddedAt { get; set; }
 
         public virtual Vault? Vault { get; set; }
-
         public List<VaultStorageKeySecurityQA>? SecurityQAs { get; set; }
-
-
     }
 }

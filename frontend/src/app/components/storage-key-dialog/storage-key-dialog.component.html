@@ -1,13 +1,11 @@
-
-<form [formGroup]="addVaultSecurityKeyForm" (submit)="AddNewKey()">
+<form [formGroup]="updateStorageKeyForm" (submit)="updateKey()">
     <p-dialog
-        header="Add New Storage Key"
+        header="Storage Key"
         [(visible)]="display"
         (onHide)="closeDialog()"
+        position="top"
         [modal]="true"
-        [position]="'top'"
         [style]="{width:'60rem'}">
-        
         <div>
             <div class="field grid p-fluid">
                 <div class="col-3 align-self-center">
@@ -61,23 +59,48 @@
             </div>
         </div>
         <ng-template pTemplate="footer">
-            <p-button type="submit"
-                icon="pi pi-plus"
-                label="Create Storage Key"
-                [raised]="true"
-                [outlined]="true"
-                severity="success"
-                [disabled]="addVaultSecurityKeyForm.invalid"
-            ></p-button>
-            <p-button
-                icon="pi pi-times"
-                label="Close"
-                [raised]="true"
-                [outlined]="true"
-                severity="warning"
-                class="w-2"
-                (onClick)="closeDialog()"
-            ></p-button>
+            @if (isEditModeEnabled) {
+                <p-button type="submit"
+                    icon="pi pi-save"
+                    label="Save"
+                    [raised]="true"
+                    [outlined]="true"
+                    severity="primary"
+                    [disabled]="updateStorageKeyForm.invalid"
+                ></p-button>
+                <p-button
+                    type="button"
+                    icon="pi pi-times"
+                    label="Cancel"
+                    [raised]="true"
+                    [outlined]="true"
+                    severity="warning"
+                    class="w-2"
+                    (onClick)="disableEditMode()"
+                ></p-button>
+            } @else {
+                <p-button 
+                    icon="pi pi-file-edit"
+                    label="Edit"
+                    [raised]="true"
+                    [outlined]="true"
+                    severity="help"
+                    (onClick)="enableEditMode()"
+                ></p-button>
+                <p-button
+                    type="button"
+                    icon="pi pi-times"
+                    label="Close"
+                    [raised]="true"
+                    [outlined]="true"
+                    severity="secondary"
+                    class="w-2"
+                    (onClick)="closeDialog()"
+                ></p-button>
+            }
+            
+            
+
         </ng-template>
     </p-dialog>
 </form>

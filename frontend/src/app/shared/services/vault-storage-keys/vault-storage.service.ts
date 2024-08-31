@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { CreateVaultStorageKeyRequest } from '../../models/vault.model';
+import { CreateVaultStorageKeyRequest, UpdateVaultStorageKeyRequest } from '../../models/vault.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,5 +18,10 @@ export class VaultStorageService {
   public AddNewKey(req:CreateVaultStorageKeyRequest):Observable<void>{
     return this.http.post<void>(this.storageKey, req);
   }
+  
+  public updateKey(securityKeyId:string, req:UpdateVaultStorageKeyRequest):Observable<void>{
+    return this.http.put<void>(this.storageKey+'/'+securityKeyId, req);
+  }
+  
   
 }

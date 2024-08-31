@@ -22,6 +22,15 @@ export interface CreateVaultStorageKeyRequest {
     accessLocation?: string,
     securityQAs?: {}[],
 }
+export interface UpdateVaultStorageKeyRequest {
+    userKey?:string;
+    vaultStorageKeyId: string;
+    keyName:string;
+    username?:string;
+    password:string;
+    email?:string;
+    accessLocation?:string; 
+}
 
 export interface ListUserVaultResponse {
     vaults:Vault[];
@@ -35,6 +44,7 @@ export interface Vault {
 }
 
 export interface VaultStorageKey {
+    vaultStorageKeyId: string;
     keyName:string;
     emailAddress?:string;
     username?:string;
@@ -42,5 +52,5 @@ export interface VaultStorageKey {
     accessLocation?:string;
     securityQuestions?:{}[];
 
-    unmaskPassword: boolean;
+    unmaskPassword?: boolean;
 }

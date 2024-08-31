@@ -7,6 +7,7 @@ import {Clipboard, ClipboardModule} from '@angular/cdk/clipboard';
 import { AddVaultSecurityKeyDialogComponent } from '../add-vault-security-key-dialog/add-vault-security-key-dialog.component';
 import { VaultService } from '../../shared/services/vaults/vault.service';
 import { NotificationService } from '../../shared/services/notification/notification.service';
+import { StorageKeyDialogComponent } from '../storage-key-dialog/storage-key-dialog.component';
 
 @Component({
   selector: 'app-vault-dialog',
@@ -17,6 +18,7 @@ import { NotificationService } from '../../shared/services/notification/notifica
     PasswordMaskPipe,
     ClipboardModule,
     AddVaultSecurityKeyDialogComponent,
+    StorageKeyDialogComponent,
   ],
   templateUrl: './vault-dialog.component.html',
   styleUrl: './vault-dialog.component.scss'
@@ -39,17 +41,16 @@ export class VaultDialogComponent {
   newVaultName?:string | null;
   newDescription?:string | null;
 
+  openedStorageKey?:VaultStorageKey | null;
+  displayStorageKeyDialog = false;
 
   closeDialog(){
     this.displayChange.emit(this.display = false);
   }
 
   openStorageKeyDialog(storageKey:VaultStorageKey){
-
-  }
-
-  copyToClipboard(value:string){
-    // this.clipboard.copy()
+    this.openedStorageKey = {...storageKey};
+    this.displayStorageKeyDialog = true;
   }
 
   openAddKeyDialog(){
@@ -99,5 +100,9 @@ export class VaultDialogComponent {
   cancelDescriptionEdits(){
     this.isUserEditingVDesc = false;
     this.newDescription = null;
+  }
+
+  onStorageKeyUpdated() {
+    this.onVaultUpdated.emit();
   }
 }

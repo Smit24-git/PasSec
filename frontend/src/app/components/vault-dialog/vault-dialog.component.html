@@ -113,7 +113,6 @@
                                 (onClick)="openStorageKeyDialog(storageKey)"
                             ></p-button>
                         </div>
-                        
                     </ng-template>
                 </p-card>
             </div>
@@ -127,4 +126,12 @@
         [vault]="vault"
         (onKeyAdded)="onKeyAdded()"
     ></app-add-vault-security-key-dialog>
+}
+
+@if (this.displayStorageKeyDialog && openedStorageKey) {
+    <app-storage-key-dialog
+        [(display)]="displayStorageKeyDialog"
+        [storageKey]="openedStorageKey"
+        (onKeyUpdated)="onStorageKeyUpdated()"
+    ></app-storage-key-dialog>
 }
