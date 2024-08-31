@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\VaultStorageSecurityKeys\Commands\" />
     <Folder Include="Features\VaultStorageSecurityQAs\Commands\" />
   </ItemGroup>
 
