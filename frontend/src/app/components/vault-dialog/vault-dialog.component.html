@@ -13,7 +13,16 @@
             <div class="col-2 align-self-top"><label>Description: </label></div>
             <div class="col" style="white-space: pre-wrap;">{{vault.description}}</div>
         </div>
-        <h4>Storage Keys:</h4>
+        <div class="flex gap-2 align-items-center">
+            <h4>Storage Keys:</h4> 
+            <p-button 
+                icon="pi pi-plus" 
+                [text]="true" 
+                [rounded]="true" 
+                severity="secondary"
+                styleClass="text-sm m-0 p-0 h-auto w-auto" 
+                class="m-0 p-0 align-self-center"
+                (onClick)="openAddKeyDialog()"/> </div>
         <div class="grid">
             <div class="col-6" *ngFor="let storageKey of vault.storageKeys">
                 <p-card [subheader]="storageKey.keyName" styleClass="border-3	 surface-border	">
@@ -92,3 +101,11 @@
         </div>
     </div>
 </p-dialog>
+
+@if (this.displayAddVaultStorageKeyDialog) {
+    <app-add-vault-security-key-dialog
+        [(display)]="displayAddVaultStorageKeyDialog"
+        [vault]="vault"
+        (onKeyAdded)="onKeyAdded()"
+    ></app-add-vault-security-key-dialog>
+}

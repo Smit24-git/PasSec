@@ -12,6 +12,17 @@ export interface CreateVaultRequest {
     }
 }
 
+export interface CreateVaultStorageKeyRequest {
+    userKey?: string,
+    vaultId: string,
+    keyName: string,
+    username?: string,
+    password: string,
+    email?: string,
+    accessLocation?: string,
+    securityQAs?: {}[],
+}
+
 export interface ListUserVaultResponse {
     vaults:Vault[];
 }

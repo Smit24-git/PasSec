@@ -1,0 +1,83 @@
+
+<form [formGroup]="addVaultSecurityKeyForm" (submit)="AddNewKey()">
+    <p-dialog
+        header="Add New Storage Key"
+        [(visible)]="display"
+        (onHide)="closeDialog()"
+        [modal]="true"
+        [position]="'top'"
+        [style]="{width:'60rem'}">
+        
+        <div>
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>Key Name: </label>
+                </div>
+                <div class="col-9">
+                    <input pInputText formControlName="keyName"  />
+                </div>
+            </div>
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>Username: </label>
+                </div>
+                <div class="col-9">
+                    <input pInputText formControlName="username"  />
+                </div>
+            </div>
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>Password: </label>
+                </div>
+                <div class="col-9">
+                    <p-password formControlName="password"   />
+                </div>
+            </div>
+            
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>EmailAddress: </label>
+                </div>
+                <div class="col-9">
+                    <input pInputText formControlName="email"  />
+                </div>
+            </div>
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>AccessLocation: </label>
+                </div>
+                <div class="col-9">
+                    <input pInputText formControlName="accessLocation"  />
+                </div>
+            </div>
+            
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>Security QAs: </label>
+                </div>
+                <div class="col-9">
+                    NOT IMPLEMENTED
+                </div>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button type="submit"
+                icon="pi pi-plus"
+                label="Create Storage Key"
+                [raised]="true"
+                [outlined]="true"
+                severity="success">
+            </p-button>
+            <p-button
+                icon="pi pi-times"
+                label="Close"
+                [raised]="true"
+                [outlined]="true"
+                severity="warning"
+                class="w-2"
+                (onClick)="closeDialog()">
+
+            </p-button>
+        </ng-template>
+    </p-dialog>
+</form>
