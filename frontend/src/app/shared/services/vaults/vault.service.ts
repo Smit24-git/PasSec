@@ -23,6 +23,10 @@ export class VaultService {
   }
 
   public getVault(vaultId:string, vaultReq: {vaultId:string, userKey?: string} ):Observable<Vault> {
-    return this.http.post<{vault:Vault}>(this.vaultURL+"/"+vaultId,vaultReq ).pipe(map(res=>res.vault))
+    return this.http.post<{vault:Vault}>(this.vaultURL+"/"+vaultId,vaultReq).pipe(map(res=>res.vault))
+  }
+
+  public updateVault(vaultId:string, req: {vaultId:string, vaultName:string, description?:string}){
+    return this.http.put<{vault:Vault}>(this.vaultURL+"/"+vaultId,req)
   }
 }

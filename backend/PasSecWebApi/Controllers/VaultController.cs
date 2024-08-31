@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PasSecWebApi.Application.Features.Vaults.Commands.CreateVault;
+using PasSecWebApi.Application.Features.Vaults.Commands.UpdateVault;
 using PasSecWebApi.Application.Features.Vaults.Queries.GetAuthenticatedUserVaults;
 using PasSecWebApi.Application.Features.Vaults.Queries.GetVaultById;
+using PasSecWebApi.Shared.Exceptions;
 
 namespace PasSecWebApi.Controllers
 {
@@ -47,9 +49,20 @@ namespace PasSecWebApi.Controllers
         {
             if(vaultId!= qry.VaultId)
             {
-                throw new Shared.Exceptions.BadRequestException(["Invalid Request"]);
+                throw new BadRequestException(["Invalid Request."]);
             }
             return Ok(await _mediatr.Send(qry));
-        } 
+        }
+
+        [HttpPut]
+        [Authorize]
+        [Route("api/vaults/{vaultId}")]
+        public async Task<ActionResult> UpdateVault(string vaultId, [FromBody] UpdateVaultCommand cmd)
+        {
+            if (vaultId != cmd.VaultId)
+                throw new BadRequestException(["Invalid Request."]);
+            
+            return Ok(await _mediatr.Send(cmd));
+        }
     }
 }

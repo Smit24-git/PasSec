@@ -5,6 +5,8 @@ import { Vault, VaultStorageKey } from '../../shared/models/vault.model';
 import { PasswordMaskPipe } from '../../shared/pipes/passwordMask/password-mask.pipe';
 import {Clipboard, ClipboardModule} from '@angular/cdk/clipboard';
 import { AddVaultSecurityKeyDialogComponent } from '../add-vault-security-key-dialog/add-vault-security-key-dialog.component';
+import { VaultService } from '../../shared/services/vaults/vault.service';
+import { NotificationService } from '../../shared/services/notification/notification.service';
 
 @Component({
   selector: 'app-vault-dialog',
@@ -27,8 +29,15 @@ export class VaultDialogComponent {
 
 
   private clipboard = inject(Clipboard);
+  private vaultService = inject(VaultService);
+  private notificationService = inject(NotificationService);
 
   displayAddVaultStorageKeyDialog = false;
+
+  isUserEditingVName = false;
+  isUserEditingVDesc = false;
+  newVaultName?:string | null;
+  newDescription?:string | null;
 
 
   closeDialog(){
@@ -49,5 +58,46 @@ export class VaultDialogComponent {
 
   onKeyAdded() {
     this.onVaultUpdated.emit();
+  }
+
+  enableVaultEditor(){
+    this.newVaultName = this.vault.vaultName;
+    this.isUserEditingVName = true;
+  }
+  enableDescriptionEditor(){
+    this.newDescription = this.vault.description;
+    this.isUserEditingVDesc = true;
+  }
+
+  updateVaultName(){
+    this.isUserEditingVName = false;
+    this.vault.vaultName = this.newVaultName!;
+    // save vault
+    this.vaultService.updateVault(this.vault.vaultId, this.vault)
+    .subscribe((res)=>{
+      this.onVaultUpdated.emit();
+      this.notificationService.showMessage({severity: 'success', summary: 'Vault Updated!'})
+    });
+  }
+  
+  updateVaultDescription(){
+    this.isUserEditingVDesc = false;
+    this.vault.description = this.newDescription!;
+    // save vault
+    this.vaultService.updateVault(this.vault.vaultId, this.vault)
+    .subscribe((res)=>{
+      this.onVaultUpdated.emit();
+      this.notificationService.showMessage({severity: 'success', summary: 'Vault Updated!'})
+    });
+  }
+
+  cancelVaultNameEdits(){
+    this.isUserEditingVName = false;
+    this.newVaultName = null;
+  }
+
+  cancelDescriptionEdits(){
+    this.isUserEditingVDesc = false;
+    this.newDescription = null;
   }
 }
