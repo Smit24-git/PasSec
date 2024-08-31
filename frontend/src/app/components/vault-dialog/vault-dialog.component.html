@@ -23,7 +23,7 @@
             <div class="col" style="white-space: pre-wrap;">
                 @if (!isUserEditingVDesc) {
                     <span>{{vault.description}}</span>
-                    <i class="pi pi-pencil text-xs cursor-pointer" (click)="enableDescriptionEditor()"></i>
+                    <i class="pi pi-pencil text-xs cursor-pointer ml-2" (click)="enableDescriptionEditor()"></i>
                 } @else {
                     <textarea pInputTextarea  rows="5" cols="50" [(ngModel)]="newDescription"></textarea>
                     <i class="pi pi-check text-xs ml-3 text-primary cursor-pointer" (click)="updateVaultDescription()"></i>
