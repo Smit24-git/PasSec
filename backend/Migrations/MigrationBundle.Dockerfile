@@ -49,5 +49,6 @@ COPY Migrations/run_migration.sh .
 
 ENV PAS_SEC_ADMIN_CONNECTION_STRING=${CONNECTION}
 ENV ConnectionStrings__mysqlDatabase=${CONNECTION}
+RUN chmod +x run_migration.sh
 
 ENTRYPOINT ["./run_migration.sh"]
