@@ -46,7 +46,7 @@ namespace PasSecWebApi.Application.Features.Users.Commands.LoginUser
             var validPassword= await userManager.CheckPasswordAsync(user, request.Password);
 
             if (!validPassword)
-                throw new BadRequestException(["Invalid Password"]);
+                throw new BadRequestException(["Invalid Answer"]);
 
             //create token
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -4,12 +4,17 @@ import { SharedModule } from '../../shared/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from '../../shared/services/notification/notification.service';
 import { VaultStorageService } from '../../shared/services/vault-storage-keys/vault-storage.service';
-import { VaultStorageKey } from '../../shared/models/vault.model';
+import { SecurityQuestion, VaultStorageKey } from '../../shared/models/vault.model';
+import { UpdateQuestionDialogComponent } from '../update-question-dialog/update-question-dialog.component';
 
 @Component({
   selector: 'app-storage-key-dialog',
   standalone: true,
-  imports: [CommonModule, SharedModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    UpdateQuestionDialogComponent,
+  ],
   templateUrl: './storage-key-dialog.component.html',
   styleUrl: './storage-key-dialog.component.scss'
 })
@@ -28,6 +33,9 @@ export class StorageKeyDialogComponent implements OnInit {
   private vaultStorageService = inject(VaultStorageService);
 
   isEditModeEnabled = false;
+  selectedQuestion?:SecurityQuestion | null;
+
+  displayUpdateQuestionDialog:boolean = false;
 
   ngOnInit(): void {
     this.buildGroup();
@@ -91,5 +99,19 @@ export class StorageKeyDialogComponent implements OnInit {
     });
     this.updateStorageKeyForm.disable();
     this.isEditModeEnabled = false;
+  }
+
+  openUpdateQuestionDialog(){
+    this.displayUpdateQuestionDialog=true;
+  }
+
+  onQuestionUpdated(updatedQuestion:SecurityQuestion){
+    this.onKeyUpdated.emit();
+    var question = this.storageKey.securityQAs?.find(x=>x.vaultStorageKeySecurityQAId == updatedQuestion.vaultStorageKeySecurityQAId);
+    if(question){
+      question.question = updatedQuestion.question;
+      question.answer = updatedQuestion.answer;  
+    }
+    this.disableEditMode();
   }
 }

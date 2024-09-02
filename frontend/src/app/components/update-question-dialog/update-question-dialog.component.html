@@ -1,0 +1,48 @@
+<form [formGroup]="updateQuestionForm" (submit)="updateQuestion()">
+    <p-dialog
+        [(visible)]="display"
+        (onHide)="closeDialog()"
+        header="Update Question"
+        [style]="{width:'64rem'}"
+        modal="true">
+
+        <div class="">
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>Question: </label>
+                </div>
+                <div class="col-9">
+                    <input pInputText formControlName="question"  />
+                </div>
+            </div>
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>Answer: </label>
+                </div>
+                <div class="col-9">
+                    <input pInputText formControlName="answer"  />
+                </div>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button type="submit"
+                    icon="pi pi-save"
+                    label="Save"
+                    [raised]="true"
+                    [outlined]="true"
+                    severity="primary"
+                    [disabled]="updateQuestionForm.invalid"
+                ></p-button>
+                <p-button
+                    type="button"
+                    icon="pi pi-times"
+                    label="Cancel"
+                    [raised]="true"
+                    [outlined]="true"
+                    severity="warning"
+                    class="w-2"
+                    (onClick)="closeDialog()"
+                ></p-button>
+        </ng-template>
+    </p-dialog>
+</form>

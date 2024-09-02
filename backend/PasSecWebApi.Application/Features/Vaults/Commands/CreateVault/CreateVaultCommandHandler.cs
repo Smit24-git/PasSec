@@ -74,7 +74,7 @@ namespace PasSecWebApi.Application.Features.Vaults.Commands.CreateVault
                 vsKey.IV = iv;
 
                 vsKey.SecurityQAs = new List<VaultStorageKeySecurityQA>();
-                rkey.SecurityQuestions?.ForEach(sq =>
+                rkey.SecurityQAs?.ForEach(sq =>
                 {
                     var vsq = new VaultStorageKeySecurityQA();
                     vsq.IV = iv;

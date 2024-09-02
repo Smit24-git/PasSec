@@ -16,7 +16,7 @@ namespace PasSecWebApi.Application.Features.Users.Commands.RegisterUser
             RuleFor(x=>x.Password).NotEmpty()
                 .MinimumLength(16)
                 .Matches(PasswordFieldRegularExpression.PasswordFieldRegex())
-                .WithMessage("Password requirements not met.");
+                .WithMessage("Answer requirements not met.");
 
             RuleFor(x => x.UserName)
                 .NotEmpty()

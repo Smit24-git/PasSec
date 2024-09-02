@@ -1,0 +1,38 @@
+<p-dialog
+    header="Add Security Questions"
+    [(visible)]="display"
+    (onHide)="closeDialog()"
+    position="top"
+    styleClass="w-8">
+    <div [formGroup]="keyGroup">
+        <p-button icon="pi pi-plus" label="Add" [outlined]="true" (onClick)="addNewQuestion()" ></p-button>
+        <p-accordion  [multiple]="true" >
+            <p-accordionTab formArrayName="securityQAs" header="Question {{i+1}}" 
+                *ngFor="let item of QAFormArray?.controls; let i=index"
+                [selected]="true">
+                <div [formGroupName]="i" class="grid">
+                    <div class="field p-fluid col-6">
+                        <input pInputText formControlName="question" placeholder="Question">
+                    </div>
+                    <div class="field p-fluid col-4">
+                        <input pInputText formControlName="answer" placeholder="Answer">
+                    </div>
+                    <div class="field p-fluid col-2">
+                        <p-button [text]="true" icon="pi pi-trash" severity="danger" />
+                    </div>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+        <ng-template pTemplate="footer">
+            <p-button
+            type="button"
+            label="Save"
+            [raised]='true'
+            [outlined]="true"
+            severity="success"
+            [disabled]="QAFormArray.invalid"
+            (onClick)="this.closeDialog()"
+        ></p-button>
+    </ng-template>
+</p-dialog>

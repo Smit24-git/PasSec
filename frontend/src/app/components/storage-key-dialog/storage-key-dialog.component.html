@@ -49,13 +49,30 @@
                 </div>
             </div>
             
-            <div class="field grid p-fluid">
-                <div class="col-3 align-self-center">
-                    <label>Security QAs: </label>
-                </div>
-                <div class="col-9">
-                    NOT IMPLEMENTED
-                </div>
+            <h4>Security QAs</h4>
+            <div>
+                <p-table 
+                    [selectionMode]="'single'" 
+                    [(selection)]="selectedQuestion" 
+                    [value]="storageKey.securityQAs!" 
+                    [style]="{width:'100%'}"
+                    (onRowSelect)="openUpdateQuestionDialog()" >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 80%;">Question</th>
+                            <th style="width: 20%;">Answer</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template let-row pTemplate="body">
+                        <tr [pSelectableRow]="row">
+                            <td>{{row.question}}</td>
+                            <td>{{row.answer}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        
+                    </ng-template>
+                </p-table>
             </div>
         </div>
         <ng-template pTemplate="footer">
@@ -98,9 +115,16 @@
                     (onClick)="closeDialog()"
                 ></p-button>
             }
-            
-            
-
         </ng-template>
     </p-dialog>
 </form>
+
+@if (displayUpdateQuestionDialog) {
+    <app-update-question-dialog
+    [(display)]="displayUpdateQuestionDialog"
+    [question]="selectedQuestion!"
+    (onUpdated)="onQuestionUpdated($event)"
+    (displayChange)="selectedQuestion = null">
+
+    </app-update-question-dialog>
+}

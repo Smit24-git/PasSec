@@ -50,7 +50,26 @@ export interface VaultStorageKey {
     username?:string;
     password:string;
     accessLocation?:string;
-    securityQuestions?:{}[];
+    securityQAs?:SecurityQuestion[];
 
     unmaskPassword?: boolean;
+}
+
+export interface CreateVaultKeyQuestionRequest {
+    userKey?:string;
+    keyId:string;
+    question:string;
+    answer:string;
+}
+
+export interface UpdateVaultKeyQuestionRequest {
+    Id: string;
+    userKey?:string;
+    keyId:string;
+    question:string;
+    answer:string;
+}
+
+export interface SecurityQuestion{
+    vaultStorageKeySecurityQAId:string, question:string, answer:string;
 }

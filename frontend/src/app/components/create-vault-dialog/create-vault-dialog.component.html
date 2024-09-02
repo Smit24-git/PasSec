@@ -5,7 +5,7 @@
     [(visible)]="display"
     (onHide)="closeDialog()"
     modal="true"
-    [style]="{width: '60rem'}">
+    [style]="{width: '68rem'}">
     <div>
             <div class="field grid p-fluid">
                 <div class="col-3 align-self-center">
@@ -119,7 +119,7 @@
                                     <td>
                                         <p-cellEditor>
                                             <ng-template pTemplate="input">
-                                                --
+                                                <p-button type="button" label="Add" [text]="true" (onClick)="addQAs(rowData)" />
                                             </ng-template>
                                             <ng-template pTemplate="output">
                                                 {{rowData.controls.securityQAs.value.length}} QA
@@ -136,12 +136,20 @@
                                                 class="p-button-rounded p-button-text"
                                             ></button>
                                             <button
+                                                *ngIf="!editing"
+                                                pButton pRipple type="button"
+                                                icon="pi pi-trash"
+                                                class="p-button-rounded p-button-text p-button-warning"
+                                                (click)="removeKey(rowIndex)"
+                                            ></button>
+                                            <button
                                                 *ngIf="editing"
                                                 pButton pRipple type="button"
                                                 pSaveEditableRow
                                                 icon="pi pi-check"
                                                 class="p-button-rounded p-button-text p-button-success mr-2"
                                                 (click)="editedRow()"
+                                                [disabled]="rowData.invalid"
                                             ></button>
                                             <button
                                                 *ngIf="editing"
@@ -158,7 +166,7 @@
                             </ng-container>
                         </ng-template>
                         <ng-template pTemplate="footer">
-                            <tr> <td colspan="6"> 
+                            <tr> <td colspan="7"> 
                                 <p-button 
                                     label="Add to Storage" icon="pi pi-plus" outlined="true" size="small"
                                     (onClick)="addNewKey()"
@@ -189,4 +197,11 @@
         ></p-button>
     </ng-template>
 </p-dialog>
+@if(displayAddQADialog){
+    <app-add-qas-dialog
+        [(display)]="displayAddQADialog"
+        [keyGroup]="securityKeyFormGroup!"
+    ></app-add-qas-dialog>
+}
+
 </form>

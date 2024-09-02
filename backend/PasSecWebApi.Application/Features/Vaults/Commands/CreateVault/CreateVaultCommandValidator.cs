@@ -38,7 +38,7 @@ namespace PasSecWebApi.Application.Features.Vaults.Commands.CreateVault
             RuleFor(e => e.Password)
                 .NotNull()
                 .NotEmpty();
-            RuleForEach(e => e.SecurityQuestions)
+            RuleForEach(e => e.SecurityQAs)
                 .SetValidator(new CreateVaultCommandSecurityQAValidator());
         }
     }

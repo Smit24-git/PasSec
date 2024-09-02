@@ -39,6 +39,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TreeModule } from 'primeng/tree';
 import { FloatLabelModule } from 'primeng/floatlabel'
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { FloatLabelModule } from 'primeng/floatlabel'
     SelectButtonModule,
     TreeModule,
     FloatLabelModule,
+    AccordionModule,
   ],
   exports: [
     FormsModule,
@@ -124,7 +126,8 @@ import { FloatLabelModule } from 'primeng/floatlabel'
     TooltipModule,
     SelectButtonModule,
     TreeModule,
-    FloatLabelModule
+    FloatLabelModule,
+    AccordionModule,
   ],
   providers: [
     MessageService,

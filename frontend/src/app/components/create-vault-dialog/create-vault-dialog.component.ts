@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { VaultService } from '../../shared/services/vaults/vault.service';
 import { NotificationService } from '../../shared/services/notification/notification.service';
+import { AddQAsDialogComponent } from '../add-qas-dialog/add-qas-dialog.component';
 
 @Component({
   selector: 'app-create-vault-dialog',
   standalone: true,
-  imports: [CommonModule, SharedModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    AddQAsDialogComponent],
   templateUrl: './create-vault-dialog.component.html',
   styleUrl: './create-vault-dialog.component.scss'
 })
@@ -23,6 +27,9 @@ export class CreateVaultDialogComponent implements OnInit {
   private notificationService = inject(NotificationService);
 
   editingKey = '';
+
+  securityKeyFormGroup?:FormGroup;
+  displayAddQADialog:boolean = false;
   
   ngOnInit(): void {
     this.buildForm();
@@ -106,7 +113,16 @@ export class CreateVaultDialogComponent implements OnInit {
         // handled by global error!
       }
     });
+  }
 
+  removeKey(rowIndex:number){
+    (this.createVaultForm.get("keys") as FormArray)
+    .removeAt(rowIndex);
+  }
 
+  addQAs(control:FormGroup){
+    this.securityKeyFormGroup = control;
+    this.displayAddQADialog = true;
+    console.log(control)
   }
 }

@@ -17,7 +17,7 @@ namespace PasSecWebApi.Application.Features.Vaults.Commands.CreateVault
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string AccessLocation { get; set; } = string.Empty;
-        public List<CreateVaultCommandKeySecurityQuestion>? SecurityQuestions { get; set; } = [];
+        public List<CreateVaultCommandKeySecurityQuestion>? SecurityQAs { get; set; } = [];
     }
     public class CreateVaultCommandKeySecurityQuestion
     {
