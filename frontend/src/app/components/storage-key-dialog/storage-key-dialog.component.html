@@ -48,8 +48,10 @@
                     <input pInputText formControlName="accessLocation"  />
                 </div>
             </div>
-            
-            <h4>Security QAs</h4>
+            <div class="flex gap-2 align-items-center">
+                <h4>Security QAs</h4> 
+                <i class="pi pi-plus align-self-center cursor-pointer" (click)="openCreateSecurityQADialog()" ></i>           
+            </div>
             <div>
                 <p-table 
                     [selectionMode]="'single'" 
@@ -121,10 +123,17 @@
 
 @if (displayUpdateQuestionDialog) {
     <app-update-question-dialog
-    [(display)]="displayUpdateQuestionDialog"
-    [question]="selectedQuestion!"
-    (onUpdated)="onQuestionUpdated($event)"
-    (displayChange)="selectedQuestion = null">
+        [(display)]="displayUpdateQuestionDialog"
+        [question]="selectedQuestion!"
+        (onUpdated)="onQuestionUpdated($event)"
+        (displayChange)="selectedQuestion = null"
+    ></app-update-question-dialog>
+}
 
-    </app-update-question-dialog>
+@if (displayCreateSecurityQADialog) {
+    <app-create-question-answer-dialog
+        [(display)]="displayCreateSecurityQADialog"
+        [keyId]="storageKey.vaultStorageKeyId"
+        (onQuestionAdded)="onNewQuestionAdded($event)"
+    ></app-create-question-answer-dialog>
 }

@@ -6,6 +6,7 @@ import { NotificationService } from '../../shared/services/notification/notifica
 import { VaultStorageService } from '../../shared/services/vault-storage-keys/vault-storage.service';
 import { SecurityQuestion, VaultStorageKey } from '../../shared/models/vault.model';
 import { UpdateQuestionDialogComponent } from '../update-question-dialog/update-question-dialog.component';
+import { CreateQuestionAnswerDialogComponent } from '../create-question-answer-dialog/create-question-answer-dialog.component';
 
 @Component({
   selector: 'app-storage-key-dialog',
@@ -14,6 +15,7 @@ import { UpdateQuestionDialogComponent } from '../update-question-dialog/update-
     CommonModule,
     SharedModule,
     UpdateQuestionDialogComponent,
+    CreateQuestionAnswerDialogComponent,
   ],
   templateUrl: './storage-key-dialog.component.html',
   styleUrl: './storage-key-dialog.component.scss'
@@ -36,6 +38,7 @@ export class StorageKeyDialogComponent implements OnInit {
   selectedQuestion?:SecurityQuestion | null;
 
   displayUpdateQuestionDialog:boolean = false;
+  displayCreateSecurityQADialog:boolean = false;
 
   ngOnInit(): void {
     this.buildGroup();
@@ -50,6 +53,7 @@ export class StorageKeyDialogComponent implements OnInit {
       this.notificationServie.showMessage({severity:'success',summary: 'Key Updated.'});
       this.onKeyUpdated.emit();
       this.storageKey = {
+        ...this.storageKey,
         keyName: formValue.keyName,
         password: formValue.password,
         username: formValue.username,
@@ -112,6 +116,16 @@ export class StorageKeyDialogComponent implements OnInit {
       question.question = updatedQuestion.question;
       question.answer = updatedQuestion.answer;  
     }
+    this.disableEditMode();
+  }
+
+  openCreateSecurityQADialog(){
+    this.displayCreateSecurityQADialog = true;
+  }
+
+  onNewQuestionAdded(question:SecurityQuestion){
+    this.storageKey.securityQAs?.push(question);
+    this.onKeyUpdated.emit();
     this.disableEditMode();
   }
 }

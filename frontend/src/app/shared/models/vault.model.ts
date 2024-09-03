@@ -71,5 +71,8 @@ export interface UpdateVaultKeyQuestionRequest {
 }
 
 export interface SecurityQuestion{
-    vaultStorageKeySecurityQAId:string, question:string, answer:string;
+    vaultStorageKeySecurityQAId: string; 
+    question: string;
+    answer: string;
+    vaultStorageKeyId: string;
 }

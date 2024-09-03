@@ -1,0 +1,46 @@
+
+<form [formGroup]="createQuestionForm" (submit)="createQuestion()">
+    <p-dialog
+        header="Add new question"
+        [(visible)]="display"
+        (onHide)="closeDialog()"
+        position="top"
+        modal="true"
+        styleClass="w-6">
+        <div>
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>Question:</label>
+                </div>
+                <div class="col-9">
+                    <input pInputText formControlName="question"/>
+                </div>
+            </div>
+            <div class="field grid p-fluid">
+                <div class="col-3 align-self-center">
+                    <label>Answer:</label>
+                </div>
+                <div class="col-9">
+                    <input pInputText formControlName="answer"/>
+                </div>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button
+                type="submit"
+                label="Create Question"
+                [raised]='true'
+                [outlined]="true"
+                severity="success"
+                [disabled]="createQuestionForm.invalid"
+            ></p-button>
+            <p-button
+                label="Cancel"
+                outlined="true" 
+                severity="warning"
+                styleClass="w-2"
+                (onClick)="closeDialog()"
+            ></p-button>
+        </ng-template>
+    </p-dialog>
+</form>

@@ -13,8 +13,8 @@ export class VaultKeyQAService {
   private http = inject(HttpClient);
   constructor() { }
 
-  addNewQuestion(req: CreateVaultKeyQuestionRequest):Observable<void> {
-    return this.http.post<void>(this.qaUrl,req);
+  addNewQuestion(req: CreateVaultKeyQuestionRequest):Observable<{id:string}> {
+    return this.http.post<{id:string}>(this.qaUrl,req);
   }
 
   updateQuestion(id:string, req: UpdateVaultKeyQuestionRequest):Observable<void> {

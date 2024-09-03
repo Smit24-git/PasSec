@@ -41,6 +41,7 @@ export class UpdateQuestionDialogComponent implements OnInit{
         vaultStorageKeySecurityQAId: formValue.id,
         question: formValue.question,
         answer: formValue.answer,
+        vaultStorageKeyId: this.question.vaultStorageKeyId,
       });
       
       this.closeDialog();

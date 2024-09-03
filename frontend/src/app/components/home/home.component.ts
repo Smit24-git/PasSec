@@ -78,11 +78,11 @@ export class HomeComponent implements OnInit,OnDestroy {
 
   updateVault(vaultId:string) {
     this.vaultService.getVault(vaultId, {vaultId}).subscribe((v)=>{
-      if(this.vault?.vaultId == vaultId){
+      if(this.vault?.vaultId == vaultId) {
         this.vault = {...v};
       }
     });
 
-    this.setupVaults(); //refresh all vault definations
+    this.setupVaults();
   }
 }
