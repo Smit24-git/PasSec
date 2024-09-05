@@ -20,7 +20,10 @@ export interface CreateVaultStorageKeyRequest {
     password: string,
     email?: string,
     accessLocation?: string,
-    securityQAs?: {}[],
+    securityQAs?: {
+        question:string,
+        answer:string,
+    }[],
 }
 export interface UpdateVaultStorageKeyRequest {
     userKey?:string;

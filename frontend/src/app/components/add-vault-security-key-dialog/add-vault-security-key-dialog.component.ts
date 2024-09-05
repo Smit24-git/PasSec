@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Vault } from '../../shared/models/vault.model';
 import { NotificationService } from '../../shared/services/notification/notification.service';
 import { VaultStorageService } from '../../shared/services/vault-storage-keys/vault-storage.service';
@@ -59,12 +59,29 @@ export class AddVaultSecurityKeyDialogComponent implements OnInit {
     });
   }
 
+  addQAForm() {
+    this.securityQAs.push(this.fb.group({
+      _key: [Math.random()],
+      question: [null, [Validators.required]],
+      answer: [null, [Validators.required]],
+    }));
+  }
+
   private resetForm() {
     this.addVaultSecurityKeyForm.reset()
     this.addVaultSecurityKeyForm.patchValue({      
       vaultId: this.vault.vaultId,
       securityQAs: [],
     });
+    this.addVaultSecurityKeyForm.updateValueAndValidity();
+  }
+
+  get securityQAs(): FormArray {
+    return this.addVaultSecurityKeyForm.get('securityQAs') as FormArray;
+  }
+
+  removeQAForm(index:number){
+    this.securityQAs.removeAt(index);
     this.addVaultSecurityKeyForm.updateValueAndValidity();
   }
 }

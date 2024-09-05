@@ -51,14 +51,98 @@
                 </div>
             </div>
             
-            <div class="field grid p-fluid">
-                <div class="col-3 align-self-center">
-                    <label>Security QAs: </label>
-                </div>
-                <div class="col-9">
-                    NOT IMPLEMENTED
-                </div>
-            </div>
+            <h4>Security QAs</h4>
+            <p-table
+                [value]="securityQAs.controls"
+                [tableStyle]="{width:'100%'}"
+                [scrollable]="true"
+                scrollHeight="200px"
+                editMode="row"
+                styleClass="p-datatable-sm"
+                dataKey="value._key">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="w-8" >Question</th>
+                        <th class="w-3">Answer</th>
+                        <th class="w-1"></th>
+                    </tr>
+                </ng-template>
+                <ng-template 
+                    pTemplate="body" 
+                    let-rowData
+                    let-rowIndex="rowIndex" 
+                    let-editing="editing">
+                    <ng-container formArrayName="securityQAs">
+                        <tr [pEditableRow]="rowData"
+                            [formGroupName]="rowIndex">
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText formControlName="question" class="w-full p-2 text-base " />
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.value.question}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText formControlName="answer" class="w-full p-2 text-base " />
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{rowData.value.answer}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <div class="flex">
+                                    <button
+                                        *ngIf="!editing"
+                                        pButton pRipple type="button"
+                                        pInitEditableRow
+                                        icon="pi pi-pencil"
+                                        class="p-button-rounded p-button-text"
+                                    ></button>
+                                    <button
+                                        *ngIf="!editing"
+                                        pButton pRipple type="button"
+                                        icon="pi pi-trash"
+                                        class="p-button-rounded p-button-text p-button-warning"
+                                        (click)="removeQAForm(rowIndex)"
+                                    ></button>
+                                    <button
+                                        *ngIf="editing"
+                                        pButton pRipple type="button"
+                                        pSaveEditableRow
+                                        icon="pi pi-check"
+                                        class="p-button-rounded p-button-text p-button-success mr-2"
+                                        [disabled]="rowData.invalid"
+                                    ></button>
+                                    <button
+                                        *ngIf="editing"
+                                        pButton pRipple type="button"
+                                        pCancelEditableRow
+                                        icon="pi pi-times"
+                                        class="p-button-rounded p-button-text p-button-danger"
+                                    ></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <td colspan="3">
+                        <p-button
+                            label="Add New QA"
+                            icon="pi pi-plus" 
+                            outlined="true" 
+                            size="small"
+                            (onClick)="addQAForm()"
+                        ></p-button>
+                    </td>
+                </ng-template>
+            </p-table>
         </div>
         <ng-template pTemplate="footer">
             <p-button type="submit"
