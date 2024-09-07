@@ -8,6 +8,7 @@ import { AddVaultSecurityKeyDialogComponent } from '../add-vault-security-key-di
 import { VaultService } from '../../shared/services/vaults/vault.service';
 import { NotificationService } from '../../shared/services/notification/notification.service';
 import { StorageKeyDialogComponent } from '../storage-key-dialog/storage-key-dialog.component';
+import { VaultPrintDialogComponent } from '../vault-print-dialog/vault-print-dialog.component';
 
 @Component({
   selector: 'app-vault-dialog',
@@ -19,6 +20,7 @@ import { StorageKeyDialogComponent } from '../storage-key-dialog/storage-key-dia
     ClipboardModule,
     AddVaultSecurityKeyDialogComponent,
     StorageKeyDialogComponent,
+    VaultPrintDialogComponent,
   ],
   templateUrl: './vault-dialog.component.html',
   styleUrl: './vault-dialog.component.scss'
@@ -43,6 +45,8 @@ export class VaultDialogComponent {
 
   openedStorageKey?:VaultStorageKey | null;
   displayStorageKeyDialog = false;
+
+  displayPrintVaultDialog = false;
 
   closeDialog(){
     this.displayChange.emit(this.display = false);
@@ -104,5 +108,9 @@ export class VaultDialogComponent {
 
   onStorageKeyUpdated() {
     this.onVaultUpdated.emit();
+  }
+
+  openVaultPrintDialog() {
+    this.displayPrintVaultDialog = true;
   }
 }

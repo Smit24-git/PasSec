@@ -4,6 +4,13 @@
     (onHide)="closeDialog()"
     [style]="{width: '60rem'}"
     modal="true">
+    <ng-template pTemplate="header">
+        <div class="flex gap-2 align-items-center" >
+            <h4>Vault</h4>
+            <i class="pi pi-print align-self-center cursor-pointer" (click)="openVaultPrintDialog()"></i>
+        </div>
+        
+    </ng-template>
     <div class=" flex flex-column gap-3 mt-3">
         <div class="grid">
             <div class="col-2 align-self-center"><label>Vault Name: </label></div>
@@ -134,4 +141,12 @@
         [storageKey]="openedStorageKey"
         (onKeyUpdated)="onStorageKeyUpdated()"
     ></app-storage-key-dialog>
+}
+
+@if (displayPrintVaultDialog) {
+    <app-vault-print-dialog
+        [(display)]="displayPrintVaultDialog"
+        [vault]="vault">
+
+    </app-vault-print-dialog>
 }
