@@ -55,7 +55,7 @@ namespace PasSecWebApi
             var whitelistURLs = builder.Configuration["WhitelistUrls"]?.Split(',');
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("Close", builder => builder.WithOrigins(whitelistURLs ?? []).AllowAnyMethod().AllowAnyHeader());
+                options.AddPolicy("Close", builder => builder.WithOrigins(whitelistURLs ?? ["not_specified"]).AllowAnyMethod().AllowAnyHeader());
             });
 
             // return the build
