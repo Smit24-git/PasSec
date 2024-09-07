@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, input, Input, Output, ViewChild, viewChild } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, ElementRef, EventEmitter, inject, input, Input, Output, ViewChild, viewChild } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { Vault } from '../../shared/models/vault.model';
 import { jsPDF } from "jspdf";
@@ -28,7 +28,7 @@ export class VaultPrintDialogComponent {
     
     doc.html(this.printDiv.nativeElement,{
       callback: ()=>{
-        doc.save("sample.pdf");
+        doc.save(`${this.vault.vaultName} ${+this.date}.pdf`);
       },
       html2canvas: {
         scale:0.45
