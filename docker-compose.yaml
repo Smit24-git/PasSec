@@ -26,9 +26,11 @@ services:
         - CONNECTION=${connection}
         - SECRET=${api_secret}
         - CONFIGURATION=${CONFIGURATION}
+        - WhitelistURLs=${whitelist_urls}
     environment:
       - ASPNETCORE_ENVIRONMENT=${CONFIGURATION}
       - ApiSettings:Secret=${api_secret}
+      - WhitelistURLs=${whitelist_urls}
     networks:
       - pas-network
     depends_on:

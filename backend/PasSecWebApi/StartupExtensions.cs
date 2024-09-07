@@ -47,15 +47,25 @@ namespace PasSecWebApi
                     }
                 });
             });
-
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            });
-
             if(builder.Environment.IsDevelopment())
             {
                 builder.Configuration.AddUserSecrets<Program>();
+                builder.Services.AddCors(options =>
+                {
+                    options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+                });
+            }
+            else
+            {
+                var whitelistURLs = builder.Configuration["WhitelistUrls"]?.Split(',');
+                if(whitelistURLs == null  || whitelistURLs.Length == 0)
+                {
+                    throw new ApplicationException("Missing Whitelist URLs. please configure 'WhitelistUrls' in environment variables");
+                }
+                builder.Services.AddCors(options =>
+                {
+                    options.AddPolicy("Close", builder => builder.WithOrigins(whitelistURLs ?? []));
+                });
             }
 
 
@@ -71,10 +81,14 @@ namespace PasSecWebApi
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseCors("Open");
+            }
+            else
+            {
+                app.UseCors("Close");
             }
 
 
-            app.UseCors("Open");
 
             app.UseHttpsRedirection();
             

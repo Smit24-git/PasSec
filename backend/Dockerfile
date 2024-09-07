@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG CONNECTION="Server=host.docker.internal,3306;uid=sa;Password=notused;Database=passec"
 ARG SECRET="AddScretKeyHere"
 ARG CONFIGURATION='Test'
-
+ARG WhitelistURLs=''
 RUN dotnet tool install --global dotnet-ef
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
@@ -49,6 +49,7 @@ copy --from=build /publish .
 ENV PAS_SEC_ADMIN_CONNECTION_STRING=${CONNECTION}
 ENV ConnectionStrings__mysqlDatabase=${CONNECTION}
 ENV "ApiSettings:Secret"=${SECRET}
+ENV WhitelistURLs=${WhitelistURLs}
 
 ENTRYPOINT ["dotnet", "PasSecWebApi.dll"]
 
